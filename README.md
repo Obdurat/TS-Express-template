@@ -1,2 +1,2 @@
 # TS-Express-template
-A unitial express TS template to build upon
+A minimal express TS template to build upon
