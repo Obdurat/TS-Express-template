@@ -21,6 +21,8 @@ A minimal express TS template to build upon.
   <summary><strong>Dependencies</strong></summary><br />
 
     ```
+    "mysql2"
+    "dotenv"
     "express"
     "sequelize"
     "sequelize-typescript"
