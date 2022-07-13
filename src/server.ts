@@ -1,14 +1,16 @@
 import express from "express";
+import endpoints from "./routes";
 
 class Server {
   public app: express.Application;
 
-  constructor(){
+  constructor() {
     this.app = express();
     this.middleware();
   }
-  private middleware(){
+  private middleware() {
     this.app.use(express.json());
+    this.app.use(endpoints)
   }
 }
 
