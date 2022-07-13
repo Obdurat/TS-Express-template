@@ -1,28 +1,46 @@
 import { Request, Response } from "express";
+import UserService from "../Services"
 
-class GenericController {
+interface PostUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+}
 
-    public getAll(_req: Request, res: Response): Response {
-        return res.json({ response: 'Got all' });
+class UserController extends UserService {
+
+    public async getAll(_req: Request, res: Response): Promise<Response> {
+        const users = await super.getUsers();
+        return res.json({ response: users });
     }
 
-    public getOne(_req: Request, res: Response): Response {
-        return res.json({ response: 'Got one' });
+    public async findOne(req: Request, res: Response): Promise<Response> {
+        const { id } = req.params;
+        const user = await super.getOne(+id);
+        return res.json({ response: user });
     }
 
-    public postOne(_req: Request, res: Response): Response {
-        return res.json({ response: 'Posted One' });
+    public async postOne(req: Request<PostUser>, res: Response): Promise<Response> {
+        const { body } = req
+        const user = await super.createUser(body)
+        return res.json({ response: user });
     }
 
-    public patchOne(_req: Request, res: Response): Response {
-        return res.json({ response: 'Patched One' });
+    public async patchOne(req: Request<PostUser>, res: Response): Promise<Response> {
+        const { body } = req;
+        const { id } = req.params;
+        const user = await super.updateOne(+id, body)
+        return res.json({ response: user });
     }
 
-    public deleteOne(_req: Request, res: Response): Response {
-        return res.json({ response: 'Deleted One' });
+    public async destroyOne(req: Request, res: Response): Promise<Response> {
+        const { id } = req.params;
+        const status = await super.deleteOne(+id);
+        return res.json({ response: status });
     }
 };
 
-const genericController = new GenericController();
+const userController = new UserController();
 
-export default genericController;
+export default userController;
