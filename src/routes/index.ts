@@ -1,16 +1,16 @@
 import { Router } from "express";
-import userController from "../Controllers";
+import UserController from "../Controllers";
 
 const endpoints: Router = Router();
 
 endpoints.route("/")
-    .get(userController.getAll)
-    .post(userController.postOne)
-    .delete(userController.deleteOne);
-
+    .get(UserController.getAll)
+    .post(UserController.postOne)
+    
 endpoints.route("/:id")
-    .get(userController.getOne)
-    .patch(userController.patchOne);
+    .get(UserController.findOne)
+    .delete(UserController.destroyOne)
+    .patch(UserController.patchOne);
    
 
 

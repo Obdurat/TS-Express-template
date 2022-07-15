@@ -1,3 +1,6 @@
 import Server from "./server"
+import db from "./Database/models";
 
-new Server().app.listen(3000, () => console.log("server listening on port 3000"));
+db.sequelize.sync().then(() => {
+    new Server().app.listen(3000, () => console.log("server listening on port 3000"));
+});
