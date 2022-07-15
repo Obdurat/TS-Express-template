@@ -1,4 +1,5 @@
 import * as Models from "../Database/models";
+import CustomError from "../Error/CustomError";
 
 interface UserModel {
   firstName: string;
@@ -14,8 +15,8 @@ class UserService {
   }
 
   static async getOne(id: any): Promise<UserModel> {
-    console.log(id.params);
     const user = await Models.User.findOne({ where: { id }});
+    if (!user) throw new CustomError("User not found", 404);
     return user; 
   }
 
@@ -27,6 +28,7 @@ class UserService {
 
   static async updateOne(id: number, body: UserModel): Promise<UserModel> {
     const user = await Models.User.findOne({ where: { id }});
+    if (!user) throw new CustomError("User not found", 404);
     user.update(body);
     await user.save();
     return user;

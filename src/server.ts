@@ -1,4 +1,5 @@
 import express from "express";
+import errorHandler from "./Middleware/errorHandler";
 import endpoints from "./routes";
 
 class Server {
@@ -10,7 +11,8 @@ class Server {
   }
   private middleware() {
     this.app.use(express.json());
-    this.app.use(endpoints)
+    this.app.use(endpoints);
+    this.app.use(errorHandler);
   }
 }
 
